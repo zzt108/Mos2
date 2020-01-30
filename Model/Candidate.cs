@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model
@@ -8,7 +9,7 @@ namespace Model
         public int Id { get; set; }
         public Name Name { get; set; }
         public bool IsSelected { get; set; }
-        [ForeignKey("Recruiter_Id")]
+        [Required]
         public Recruiter Recruiter { get; set; }
         public IList<Experience> Experiences { get; set; }
     }

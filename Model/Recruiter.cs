@@ -6,8 +6,8 @@ namespace Model
     public class Recruiter
     {
         public int Id { get; set; }
-        [ForeignKey("Candidate_Id")]
         public Name Name { get; set; }
+        [ForeignKey("Id")]
         public Candidate Candidate { get; set; }
         public string PasswordSaltedHash{ get; set; } // not implemented yet
         public string Email{ get; set; }

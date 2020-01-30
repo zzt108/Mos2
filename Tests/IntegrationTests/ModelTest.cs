@@ -25,7 +25,7 @@ namespace IntegrationTest
                 }
                 else
                 {
-                    Console.WriteLine("OldMunicipality with ID 1 found");
+                    Console.WriteLine("Recruiter with ID 1 found");
                 }
             }
         }
@@ -43,6 +43,7 @@ namespace IntegrationTest
                 PasswordSaltedHash = "empty"
             });
             uw.SaveChanges();
+            Console.WriteLine("Base data generated");
         }
     }
 }
