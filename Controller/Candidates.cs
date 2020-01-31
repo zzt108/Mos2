@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DataAccessLayer;
 using Model;
+using Newtonsoft.Json.Linq;
 
 namespace Controller
 {
@@ -28,6 +29,26 @@ namespace Controller
                     throw new ArgumentException($"OldTax data not found!");
                 }
                 return candidates;
+            }
+        }
+
+        public static void AddTechnologies(UnitOfWork uw, Candidate candidate, JToken jTokenCandidate)
+        {
+            var content = jTokenCandidate["technologies"];
+            var techArray = content.Children();
+            foreach (var tech in techArray)
+            {
+                var techName = tech["name"].ToString();
+                var t = uw.TechnologyRepository.Get(technology => technology.Name == techName).FirstOrDefault();
+                if (t != null)
+                {
+                    candidate.Experiences.Add(new Experience()
+                    {
+                        Technology = t,
+                        Candidate = candidate,
+                        Years = tech["experienceYears"].Value<int>()
+                    });
+                }
             }
         }
 
