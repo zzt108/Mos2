@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json.Linq;
 
 namespace Model
 {
@@ -15,6 +16,7 @@ namespace Model
         }
 
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
     }
 }

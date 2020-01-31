@@ -12,7 +12,7 @@ namespace IntegrationTest
         [TestMethod]
         public void CanGetRecruiterId()
         {
-            Controller.Recruiters.GetByEmail("zzt@outlook.hu").Id.Should().Be(1);
+            Controller.Recruiters.GetByEmail("zzt@outlook.hu").RecruiterId.Should().Be(1);
         }
 
 

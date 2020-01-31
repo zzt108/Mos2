@@ -19,7 +19,7 @@ namespace WinService.NancyFX
                     var model = this.Bind<Recruiter>();
                     Controller.Recruiters.Add(model);
 
-                    var r = Response.AsJson(model).WithHeader("Location", $"/recruiter/id/{model.Id}");
+                    var r = Response.AsJson(model).WithHeader("Location", $"/recruiter/id/{model.RecruiterId}");
 
                     return r;
                 }
