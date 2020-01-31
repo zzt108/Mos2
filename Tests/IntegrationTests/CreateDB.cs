@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using DataAccessLayer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -34,7 +35,7 @@ namespace IntegrationTest
             }
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void GetJsonData()
         {
             var jArrayTechs = GetJson("https://v1.ifs.aero/technologies/");
@@ -58,17 +59,6 @@ namespace IntegrationTest
 
         private static void GenerateData(UnitOfWork uw)
         {
-            uw.RecruiterRepository.Add(new Recruiter()
-            {
-                Email = "zzt@outlook.hu",
-                Name = new Name()
-                {
-                    First = "Zsolt",
-                    Last = "Toth"
-                },
-                PasswordSaltedHash = "empty"
-            });
-
             var jsonTechs = GetJson("https://v1.ifs.aero/technologies/");
             var jsonCandidates = GetJson("https://v1.ifs.aero/candidates/");
 
@@ -76,6 +66,7 @@ namespace IntegrationTest
             {
                 uw.TechnologyRepository.Add(new Technology(tech));
             }
+            uw.SaveChanges();
 
             foreach (var jsonCandidate in jsonCandidates)
             {
@@ -83,11 +74,27 @@ namespace IntegrationTest
                 uw.CandidateRepository.Add(candidate);
                 Candidates.AddTechnologies(uw, candidate,jsonCandidate);
             }
+
+            uw.SaveChanges();
+
+
+            uw.RecruiterRepository.Add(new Recruiter()
+            {
+                Email = "zzt@outlook.hu",
+                Name = new Name()
+                {
+                    First = "Zsolt",
+                    Last = "Toth",
+                },
+                PasswordSaltedHash = "empty",
+                Candidate = uw.CandidateRepository.Get(c => true).First()
+            });
+
             uw.SaveChanges();
             Console.WriteLine("Base data generated");
         }
 
-        public static JArray GetJson(string baseUrl)
+        private static JArray GetJson(string baseUrl)
         {
 
             var client = new HttpClient();
