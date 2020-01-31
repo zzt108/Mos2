@@ -23,7 +23,7 @@ namespace IntegrationTest.ControllerTests
                     var candidate = uw.CandidateRepository.GetById(1);
                     foreach (var candidateExperience in candidate.Experiences)
                     {
-                        Console.WriteLine($"'{candidateExperience.Technology}'");
+                        Console.WriteLine($"'{candidateExperience.Technology.Name}'");
                     }
                     var experienceCount1 = candidate.Experiences.Count;
                     experience = new Experience()

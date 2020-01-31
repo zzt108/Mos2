@@ -10,13 +10,12 @@ namespace Model
         {
             Experiences = new List<Experience>();
         }
-
-        public Candidate(JToken cand)
+        public Candidate(JToken candidate)
         {
             Name = new Name()
             {
-                First = cand["name"]["first"].ToString(),
-                Last = cand["name"]["last"].ToString()
+                First = candidate["name"]["first"].ToString(),
+                Last = candidate["name"]["last"].ToString()
             };
 
         }
