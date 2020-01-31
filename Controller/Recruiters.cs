@@ -14,7 +14,7 @@ namespace Controller
             using (var uw = new UnitOfWork())
             {
                 return uw.RecruiterRepository.Get(r =>
-                        string.Equals(r.Email.ToLower(), email.ToLower(), StringComparison.InvariantCulture))
+                        r.Email.ToLower() == email.ToLower())
                     .FirstOrDefault();
             }
         }
