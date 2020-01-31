@@ -8,12 +8,12 @@ namespace DataAccessLayer
 {
     public sealed class GenericRepository<TEntity> where TEntity : class
     {
-        private DataContext Context;
-        private DbSet<TEntity> DbSet;
+        private readonly DataContext _context;
+        private readonly DbSet<TEntity> _dbSet;
         public GenericRepository(DataContext context)
         {
-            this.Context = context;
-            this.DbSet = context.Set<TEntity>();
+            this._context = context;
+            this._dbSet = context.Set<TEntity>();
         }
 
         public IEnumerable<TEntity> Get(
@@ -21,13 +21,13 @@ namespace DataAccessLayer
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
-            IQueryable<TEntity> query = DbSet;
+            IQueryable<TEntity> query = _dbSet;
             if (filter != null)
             {
                 query = query.Where(filter);
             }
             foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                (new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 query = query.Include(includeProperty);
             }
@@ -42,29 +42,29 @@ namespace DataAccessLayer
         }
         public TEntity GetById(object id)
         {
-            return DbSet.Find(id);
+            return _dbSet.Find(id);
         }
         public void Add(TEntity entity)
         {
-            DbSet.Add(entity);
+            _dbSet.Add(entity);
         }
         public void Delete(object id)
         {
-            var entityToDelete = DbSet.Find(id);
+            var entityToDelete = _dbSet.Find(id);
             Delete(entityToDelete);
         }
         public void Delete(TEntity entityToDelete)
         {
-            if (Context.Entry(entityToDelete).State == EntityState.Detached)
+            if (_context.Entry(entityToDelete).State == EntityState.Detached)
             {
-                DbSet.Attach(entityToDelete);
+                _dbSet.Attach(entityToDelete);
             }
-            DbSet.Remove(entityToDelete);
+            _dbSet.Remove(entityToDelete);
         }
         public void Update(TEntity entityToUpdate)
         {
-            DbSet.Attach(entityToUpdate);
-            Context.Entry(entityToUpdate).State = EntityState.Modified;
+            _dbSet.Attach(entityToUpdate);
+            _context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }

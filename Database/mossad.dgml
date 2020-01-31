@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Database" Label="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Git\zzt108\Mossad\Database\mossad.mdf;Integrated Security=True;Connect Timeout=30" Category="Database" Group="Expanded" />
+    <Node Id="dbo" Label="dbo" Category="Schema" Group="Expanded" />
+    <Node Id="dbo.Candidates" Label="dbo.Candidates" Category="Table" Group="Collapsed" />
+    <Node Id="dbo.Candidates_Id" Label="Id" Category="Field Primary" Description="int" />
+    <Node Id="dbo.Candidates_Name_First" Label="Name_First" Category="Field Optional" Description="ntext" />
+    <Node Id="dbo.Candidates_Name_Last" Label="Name_Last" Category="Field Optional" Description="ntext" />
+    <Node Id="dbo.Candidates_IsSelected" Label="IsSelected" Category="Field" Description="bit" />
+    <Node Id="dbo.Experiences" Label="dbo.Experiences" Category="Table" Group="Collapsed" />
+    <Node Id="dbo.Experiences_Id" Label="Id" Category="Field Primary" Description="int" />
+    <Node Id="dbo.Experiences_Years" Label="Years" Category="Field" Description="int" />
+    <Node Id="dbo.Experiences_Candidate_Id" Label="Candidate_Id" Category="Field Foreign" Description="int" />
+    <Node Id="dbo.Experiences_Technology_Id" Label="Technology_Id" Category="Field Foreign" Description="int" />
+    <Node Id="dbo.Recruiters" Label="dbo.Recruiters" Category="Table" Group="Collapsed" />
+    <Node Id="dbo.Recruiters_RecruiterId" Label="RecruiterId" Category="Field Primary" Description="int" />
+    <Node Id="dbo.Recruiters_Name_First" Label="Name_First" Category="Field Optional" Description="ntext" />
+    <Node Id="dbo.Recruiters_Name_Last" Label="Name_Last" Category="Field Optional" Description="ntext" />
+    <Node Id="dbo.Recruiters_CandidateId" Label="CandidateId" Category="Field Foreign" Description="int" />
+    <Node Id="dbo.Recruiters_PasswordSaltedHash" Label="PasswordSaltedHash" Category="Field Optional" Description="ntext" />
+    <Node Id="dbo.Recruiters_Email" Label="Email" Category="Field Optional" Description="ntext" />
+    <Node Id="dbo.Seens" Label="dbo.Seens" Category="Table" Group="Collapsed" />
+    <Node Id="dbo.Seens_Id" Label="Id" Category="Field Primary" Description="int" />
+    <Node Id="dbo.Seens_Candidate_Id" Label="Candidate_Id" Category="Field Foreign" Description="int" />
+    <Node Id="dbo.Seens_Recruiter_RecruiterId" Label="Recruiter_RecruiterId" Category="Field Foreign" Description="int" />
+    <Node Id="dbo.Technologies" Label="dbo.Technologies" Category="Table" Group="Collapsed" />
+    <Node Id="dbo.Technologies_Id" Label="Id" Category="Field Primary" Description="int" />
+    <Node Id="dbo.Technologies_Name" Label="Name" Category="Field" Description="ntext" />
+  </Nodes>
+  <Links>
+    <Link Source="Database" Target="dbo" Category="Contains" />
+    <Link Source="dbo" Target="dbo.Candidates" Category="Contains" />
+    <Link Source="dbo.Candidates" Target="dbo.Candidates_Id" Category="Contains" />
+    <Link Source="dbo.Candidates" Target="dbo.Candidates_Name_First" Category="Contains" />
+    <Link Source="dbo.Candidates" Target="dbo.Candidates_Name_Last" Category="Contains" />
+    <Link Source="dbo.Candidates" Target="dbo.Candidates_IsSelected" Category="Contains" />
+    <Link Source="dbo" Target="dbo.Experiences" Category="Contains" />
+    <Link Source="dbo.Experiences" Target="dbo.Experiences_Id" Category="Contains" />
+    <Link Source="dbo.Experiences" Target="dbo.Experiences_Years" Category="Contains" />
+    <Link Source="dbo.Experiences" Target="dbo.Experiences_Candidate_Id" Category="Contains" />
+    <Link Source="dbo.Experiences" Target="dbo.Experiences_Technology_Id" Category="Contains" />
+    <Link Source="dbo.Experiences_Candidate_Id" Target="dbo.Candidates_Id" Label="FK_dbo.Experiences_dbo.Candidates_Candidate_Id" Category="Foreign Key" />
+    <Link Source="dbo.Experiences_Technology_Id" Target="dbo.Technologies_Id" Label="FK_dbo.Experiences_dbo.Technologies_Technology_Id" Category="Foreign Key" />
+    <Link Source="dbo" Target="dbo.Recruiters" Category="Contains" />
+    <Link Source="dbo.Recruiters" Target="dbo.Recruiters_RecruiterId" Category="Contains" />
+    <Link Source="dbo.Recruiters" Target="dbo.Recruiters_Name_First" Category="Contains" />
+    <Link Source="dbo.Recruiters" Target="dbo.Recruiters_Name_Last" Category="Contains" />
+    <Link Source="dbo.Recruiters" Target="dbo.Recruiters_CandidateId" Category="Contains" />
+    <Link Source="dbo.Recruiters" Target="dbo.Recruiters_PasswordSaltedHash" Category="Contains" />
+    <Link Source="dbo.Recruiters" Target="dbo.Recruiters_Email" Category="Contains" />
+    <Link Source="dbo.Recruiters_CandidateId" Target="dbo.Candidates_Id" Label="FK_dbo.Recruiters_dbo.Candidates_CandidateId" Category="Foreign Key" />
+    <Link Source="dbo" Target="dbo.Seens" Category="Contains" />
+    <Link Source="dbo.Seens" Target="dbo.Seens_Id" Category="Contains" />
+    <Link Source="dbo.Seens" Target="dbo.Seens_Candidate_Id" Category="Contains" />
+    <Link Source="dbo.Seens" Target="dbo.Seens_Recruiter_RecruiterId" Category="Contains" />
+    <Link Source="dbo.Seens_Candidate_Id" Target="dbo.Candidates_Id" Label="FK_dbo.Seens_dbo.Candidates_Candidate_Id" Category="Foreign Key" />
+    <Link Source="dbo.Seens_Recruiter_RecruiterId" Target="dbo.Recruiters_RecruiterId" Label="FK_dbo.Seens_dbo.Recruiters_Recruiter_RecruiterId" Category="Foreign Key" />
+    <Link Source="dbo" Target="dbo.Technologies" Category="Contains" />
+    <Link Source="dbo.Technologies" Target="dbo.Technologies_Id" Category="Contains" />
+    <Link Source="dbo.Technologies" Target="dbo.Technologies_Name" Category="Contains" />
+  </Links>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Table" ValueLabel="True">
+      <Condition Expression="HasCategory('Table')" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Schema" ValueLabel="True">
+      <Condition Expression="HasCategory('Schema')" />
+      <Setter Property="Background" Value="#FF7F9169" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Primary" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Primary')" />
+      <Setter Property="Background" Value="#FF008000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Optional" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Optional')" />
+      <Setter Property="Background" Value="#FF808040" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Foreign" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Foreign')" />
+      <Setter Property="Background" Value="#FF8080FF" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field" ValueLabel="True">
+      <Condition Expression="HasCategory('Field')" />
+      <Setter Property="Background" Value="#FFC0A000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Database" ValueLabel="True">
+      <Condition Expression="HasCategory('Database')" />
+      <Setter Property="Background" Value="#FFFFFFFF" />
+    </Style>
+  </Styles>
+</DirectedGraph>

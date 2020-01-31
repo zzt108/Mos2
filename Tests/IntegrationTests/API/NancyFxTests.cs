@@ -1,12 +1,9 @@
-﻿using System;
-using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Model;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nancy;
 using Nancy.Testing;
 using WinService.NancyFX;
 
-namespace IntegrationTest
+namespace IntegrationTest.API
 {
     [TestClass]
     public class NancyFxTests

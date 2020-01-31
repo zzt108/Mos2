@@ -5,7 +5,7 @@ using Nancy;
 using Nancy.Testing;
 using WinService.NancyFX;
 
-namespace IntegrationTest
+namespace IntegrationTest.API
 {
     [TestClass]
     public class RecruiterTests

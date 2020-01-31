@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json.Linq;
 
 namespace Model
 {
     public class Candidate
     {
-        private IList<Experience> _experiences;
-
+        
         public Candidate()
         {
-            
+            Experiences = new List<Experience>();
         }
 
         public Candidate(JToken cand)
@@ -28,14 +25,6 @@ namespace Model
         public Name Name { get; set; }
         public bool IsSelected { get; set; }
 
-        public int? RecruiterId { get; set; }
-        [ForeignKey("RecruiterId")]
-        public Recruiter Recruiter { get; set; }
-
-        public IList<Experience> Experiences
-        {
-            get => _experiences ?? new List<Experience>();
-            set => _experiences = value;
-        }
+        public virtual IList<Experience> Experiences { get; set; }
     }
 }

@@ -1,24 +1,22 @@
 ﻿using System;
-using System.Linq;
-using System.Web;
 using DataAccessLayer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using Controller;
+using FluentAssertions;
 
 namespace IntegrationTest
 {
     [TestClass]
-    public class CreateDB
+    public class CreateDb
     {
         [TestMethod]
-        public void CreateDb()
+        public void CreateDataBase()
         {
             Console.WriteLine(AppContext.BaseDirectory);
 
-            // Create context object and then save company data.
             using (var uw = new UnitOfWork())
             {
                 var user = uw.RecruiterRepository.GetById(1);
@@ -42,6 +40,7 @@ namespace IntegrationTest
             foreach (var tech in jArrayTechs)
             {
                 var t = new Technology(tech);
+                t.Name.Should().NotBeEmpty();
             }
 
             var jArrayCandidates = GetJson("https://v1.ifs.aero/candidates/");
@@ -55,10 +54,19 @@ namespace IntegrationTest
             }
         }
 
-
-
         private static void GenerateData(UnitOfWork uw)
         {
+            uw.RecruiterRepository.Add(new Recruiter()
+            {
+                Email = "zzt@outlook.hu",
+                Name = new Name()
+                {
+                    First = "Zsolt",
+                    Last = "Toth",
+                },
+                PasswordSaltedHash = "empty",
+            });
+
             var jsonTechs = GetJson("https://v1.ifs.aero/technologies/");
             var jsonCandidates = GetJson("https://v1.ifs.aero/candidates/");
 
@@ -77,20 +85,6 @@ namespace IntegrationTest
 
             uw.SaveChanges();
 
-
-            uw.RecruiterRepository.Add(new Recruiter()
-            {
-                Email = "zzt@outlook.hu",
-                Name = new Name()
-                {
-                    First = "Zsolt",
-                    Last = "Toth",
-                },
-                PasswordSaltedHash = "empty",
-                Candidate = uw.CandidateRepository.Get(c => true).First()
-            });
-
-            uw.SaveChanges();
             Console.WriteLine("Base data generated");
         }
 
