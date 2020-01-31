@@ -11,8 +11,6 @@ namespace IntegrationTest
     [TestClass]
     public class NancyFxTests
     {
-        private const string InaccessibleFile = @"c:\taxdata.csv";
-
         [TestMethod]
         public void CanAccessNancy()
         {
@@ -20,14 +18,10 @@ namespace IntegrationTest
             var browser = new Browser(with => with.Module<MainModule>());
 
             // When
-            var result = browser.Get("/", with =>
-            {
-                with.HttpRequest();
-            });
+            var result = browser.Get("/", with => { with.HttpRequest(); });
 
             // Then
             Assert.AreEqual(HttpStatusCode.OK, result.Result.StatusCode);
         }
-
     }
 }

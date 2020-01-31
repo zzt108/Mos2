@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controller", "Controller\Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FD7E1AE6-A339-482A-9127-E151FC88771A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestModel", "Tests\TestModel\TestModel.csproj", "{697BFC18-C273-4CDC-8E22-17D82D482601}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "Tests\IntegrationTests\IntegrationTests.csproj", "{593E417F-56E8-4511-BDA0-8FBC3BAF4017}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{DD8AEFDC-A7E7-4A5B-8644-28081125A4C5}"
@@ -31,10 +29,6 @@ Global
 		{F04FFD15-511D-4B33-B0F7-F4723D854F9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F04FFD15-511D-4B33-B0F7-F4723D854F9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F04FFD15-511D-4B33-B0F7-F4723D854F9D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{697BFC18-C273-4CDC-8E22-17D82D482601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{697BFC18-C273-4CDC-8E22-17D82D482601}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{697BFC18-C273-4CDC-8E22-17D82D482601}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{697BFC18-C273-4CDC-8E22-17D82D482601}.Release|Any CPU.Build.0 = Release|Any CPU
 		{593E417F-56E8-4511-BDA0-8FBC3BAF4017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{593E417F-56E8-4511-BDA0-8FBC3BAF4017}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{593E417F-56E8-4511-BDA0-8FBC3BAF4017}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -52,7 +46,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{697BFC18-C273-4CDC-8E22-17D82D482601} = {FD7E1AE6-A339-482A-9127-E151FC88771A}
 		{593E417F-56E8-4511-BDA0-8FBC3BAF4017} = {FD7E1AE6-A339-482A-9127-E151FC88771A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
