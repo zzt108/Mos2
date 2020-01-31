@@ -44,9 +44,9 @@ namespace Controller
                 {
                     candidate.Experiences.Add(new Experience()
                     {
-                        Technology = t,
+                        Technology = t, 
                         Candidate = candidate,
-                        Years = tech["experienceYears"].Value<int>()
+                        Years = tech["experianceYears"].Value<int>() // property is misspelled in source JSon
                     });
                 }
             }

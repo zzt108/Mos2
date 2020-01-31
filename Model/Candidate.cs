@@ -27,6 +27,11 @@ namespace Model
         public bool IsSelected { get; set; }
         [Required]
         public Recruiter Recruiter { get; set; }
-        public IList<Experience> Experiences { get; set; }
+
+        public IList<Experience> Experiences
+        {
+            get => _experiences ?? new List<Experience>();
+            set => _experiences = value;
+        }
     }
 }
