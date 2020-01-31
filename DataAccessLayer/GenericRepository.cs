@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public class GenericRepository<TEntity> where TEntity : class
+    public sealed class GenericRepository<TEntity> where TEntity : class
     {
-        internal DataContext Context;
-        internal DbSet<TEntity> DbSet;
+        private DataContext Context;
+        private DbSet<TEntity> DbSet;
         public GenericRepository(DataContext context)
         {
             this.Context = context;
             this.DbSet = context.Set<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> Get(
+        public IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
@@ -42,20 +40,20 @@ namespace DataAccessLayer
                 return query.ToList();
             }
         }
-        public virtual TEntity GetById(object id)
+        public TEntity GetById(object id)
         {
             return DbSet.Find(id);
         }
-        public virtual void Add(TEntity entity)
+        public void Add(TEntity entity)
         {
             DbSet.Add(entity);
         }
-        public virtual void Delete(object id)
+        public void Delete(object id)
         {
             var entityToDelete = DbSet.Find(id);
             Delete(entityToDelete);
         }
-        public virtual void Delete(TEntity entityToDelete)
+        public void Delete(TEntity entityToDelete)
         {
             if (Context.Entry(entityToDelete).State == EntityState.Detached)
             {
@@ -63,7 +61,7 @@ namespace DataAccessLayer
             }
             DbSet.Remove(entityToDelete);
         }
-        public virtual void Update(TEntity entityToUpdate)
+        public void Update(TEntity entityToUpdate)
         {
             DbSet.Attach(entityToUpdate);
             Context.Entry(entityToUpdate).State = EntityState.Modified;
