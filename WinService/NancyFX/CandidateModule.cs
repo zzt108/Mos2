@@ -14,33 +14,32 @@ namespace WinService.NancyFX
 
         private static object GetCandidatesByTechnology(dynamic _)
         {
-            int years;
-            try
+            if (int.TryParse(_.year, out int years))
             {
-                years = int.Parse(_.year);
-            }
-            catch (Exception e)
-            {
-                return Helper.ErrorResponse(e, HttpStatusCode.InternalServerError);
-            }
-
-            try
-            {
-                string technology = _.technology.ToString();
-                if (int.TryParse(technology, out var technologyId))
+                try
                 {
-                    return Candidates.GetCandidates(technologyId, years);
+                    string technology = _.technology.ToString();
+                    if (int.TryParse(technology, out var technologyId))
+                    {
+                        return Candidates.GetCandidates(technologyId, years);
 
+                    }
+                    else
+                    {
+                        return Candidates.GetCandidates(technology, years);
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    return Candidates.GetCandidates(technology, years);
+                    return Helper.ErrorResponse(e, HttpStatusCode.InternalServerError);
                 }
             }
-            catch (Exception e)
+            else
             {
-                return Helper.ErrorResponse(e, HttpStatusCode.InternalServerError);
+                return Helper.ErrorResponse(new ArgumentException("Invalid parameter", nameof(years)), HttpStatusCode.InternalServerError);
             }
+
         }
+
     }
 }
