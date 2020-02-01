@@ -18,6 +18,7 @@ namespace Model
                 First = candidate["name"]["first"].ToString(),
                 Last = candidate["name"]["last"].ToString()
             };
+            ExternalId = candidate["_id"].ToString();
 
         }
 
@@ -25,6 +26,7 @@ namespace Model
         public int Id { get; set; }
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
         public Name Name { get; set; }
+        public string ExternalId { get; set; }
         public bool IsSelected { get; set; }
 
         public virtual IList<Experience> Experiences { get; set; }

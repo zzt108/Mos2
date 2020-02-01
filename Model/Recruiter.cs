@@ -15,8 +15,8 @@ namespace Model
         [Key]
         public int RecruiterId { get; set; }
         public Name Name { get; set; }
-        public int? Candidate_Id { get; set; }
-        [ForeignKey("Candidate_Id")]
+        public int? PromotedFromCandidate_Id { get; set; }
+        [ForeignKey(nameof(PromotedFromCandidate_Id))]
         public virtual Candidate PromotedFromCandidate { get; set; }
         public string PasswordSaltedHash{ get; set; } // not implemented yet
         public string Email{ get; set; }

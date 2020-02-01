@@ -8,19 +8,20 @@ namespace WinService.NancyFX
         public TechnologyModule() : base("/Technology")
         {
             Get("/", _ => GetAll());
+
+            object GetAll()
+            {
+                try
+                {
+                    return Controller.Technologies.GetAll();
+                }
+                catch (Exception e)
+                {
+                    return Helper.ErrorResponse(e, HttpStatusCode.InternalServerError);
+                }
+            }
         }
 
-        private static object GetAll()
-        {
-            try
-            {
-                return Controller.Technologies.GetAll();
-            }
-            catch (Exception e)
-            {
-                return Helper.ErrorResponse(e, HttpStatusCode.InternalServerError);
-            }
-        }
 
     }
 }

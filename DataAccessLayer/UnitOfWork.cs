@@ -4,7 +4,7 @@ using Model;
 
 namespace DataAccessLayer
 {
-    public sealed class UnitOfWork : IDisposable
+    public class UnitOfWork : IDisposable
     {
         private readonly DataContext _context = new DataContext();
         private GenericRepository<Candidate> _candidateRepository;

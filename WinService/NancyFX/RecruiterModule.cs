@@ -12,7 +12,9 @@ namespace WinService.NancyFX
         public RecruiterModule() : base("/Recruiter")
         {
             Get("/login/{email}/{password}", _ => LoginRecruiter(_));
-            Post("/add}", _ =>
+            Post("/add}", _ => Add());
+
+            Response Add()
             {
                 try
                 {
@@ -27,21 +29,22 @@ namespace WinService.NancyFX
                 {
                     return Helper.ErrorResponse(e, HttpStatusCode.InternalServerError);
                 }
-            });
+            }
+
+            Response LoginRecruiter(dynamic _)
+            {
+                try
+                {
+                    var r = Controller.Recruiters.GetByEmail(_.email.ToString());
+                    return r == null ? Helper.ErrorResponse(new ArgumentException($"Email '{_.email}' not found"), HttpStatusCode.NotFound) : r.Name;
+                }
+                catch (Exception e)
+                {
+                    return Helper.ErrorResponse(e, HttpStatusCode.InternalServerError);
+                }
+            }
         }
 
-        private object LoginRecruiter(dynamic _)
-        {
-            try
-            {
-                var r = Controller.Recruiters.GetByEmail(_.email.ToString());
-                return r == null ? Helper.ErrorResponse(new ArgumentException($"Email '{_.email}' not found"), HttpStatusCode.NotFound) : r.Name;
-            }
-            catch (Exception e)
-            {
-                return Helper.ErrorResponse(e, HttpStatusCode.InternalServerError);
-            }
-        }
     }
 
 

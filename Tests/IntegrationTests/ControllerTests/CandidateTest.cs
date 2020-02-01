@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Controller;
 using DataAccessLayer;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,6 +11,21 @@ namespace IntegrationTest.ControllerTests
     [TestClass]
     public class CandidateTest
     {
+        [TestMethod]
+        public void CanGetCandidatesByTech()
+        {
+            using (var uw = new UnitOfWork())
+            {
+                var tech = uw.TechnologyRepository.GetById(1);
+                var years = 1;
+                var candidates = Candidates.GetCandidates(uw, tech.Id, years);
+                foreach (var candidate in candidates)
+                {
+                    candidate.Experiences.Should()
+                        .Contain(exp => exp.Technology.Id == 1 && exp.Years >= years);
+                }
+            }
+        }
 
         [TestMethod]
         public void CanAddExperience()
