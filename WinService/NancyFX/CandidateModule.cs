@@ -1,20 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using Controller;
 using DataAccessLayer;
+using Model;
 using Nancy;
+using Nancy.Helpers;
+using Nancy.ModelBinding;
 
 namespace WinService.NancyFX
 {
     public sealed class CandidateModule : NancyModule
     {
 
-        public CandidateModule() : base("/Candidate")
+        public CandidateModule() : base("/candidate")
         {
-            Get("/{technology}/{years}", _ => GetCandidatesByTechnology(_));
-            Put("/accept/{id}}", _ => Accept(_, true));
-            Put("/reject/{id}}", _ => Accept(_, false));
+            Get("/{technology}/{years}", _ => GetCandidatesByTechnology());
+            Put("/accept/{recruiterId}/{candidateId}}", _ => Accept(_, true));
+            Put("/reject/{recruiterId}/{candidateId}}", _ => Accept(_, false));
             Get("/accepted", _ => GetAcceptedCandidates());
-            Put("/promote/id", _ => PromoteCandidate(_));
+            Put("/promote/{id}", _ => PromoteCandidate(_));
         }
 
         private dynamic PromoteCandidate(dynamic _)
@@ -27,40 +31,56 @@ namespace WinService.NancyFX
             throw new NotImplementedException();
         }
 
-        private static dynamic Accept(dynamic _, bool accept)
+        private dynamic Accept(dynamic _, bool accept)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //get parameters
+                var model = this.Bind<RequestObject>();
+                Candidates.Accept(model.RecruiterId, model.CandidateId, accept);
+
+                var r = Response.AsJson(model).WithHeader("Location", $"/recruiter/id/{model.RecruiterId}");
+
+                return r;
+            }
+            catch (Exception e)
+            {
+                return Helper.ErrorResponse(e, HttpStatusCode.InternalServerError);
+            }
         }
 
-        private static dynamic GetCandidatesByTechnology(dynamic _)
+        private dynamic GetCandidatesByTechnology()
         {
-            if (int.TryParse(_.year, out int years))
+            try
             {
-                try
+                //get parameters
+                var model = this.Bind<RequestObject>();
+                string technology = HttpUtility.UrlDecode(model.Technology);
+                using (var uw = new UnitOfWork())
                 {
-                    string technology = _.technology.ToString();
-                    using (var uw = new UnitOfWork())
+                    IEnumerable<Candidate> candidatesByTechnology;
+                    if (int.TryParse(technology, out var technologyId))
                     {
-                        if (int.TryParse(technology, out var technologyId))
-                        {
-                            return Candidates.GetCandidates(uw, technologyId, years);
-
-                        }
-                        else
-                        {
-                            return Candidates.GetCandidates(uw, technology, years);
-                        }
-
+                        candidatesByTechnology = Candidates.GetCandidates(uw, technologyId, model.Years);
+                        return candidatesByTechnology;
                     }
-                }
-                catch (Exception e)
-                {
-                    return Helper.ErrorResponse(e, HttpStatusCode.InternalServerError);
+                    else
+                    {
+                        candidatesByTechnology = Candidates.GetCandidates(uw, technology, model.Years);
+                    }
+                    //load entities before serialization
+                    var candidatesDto = new List<CandidateDto>();
+                    foreach (var candidate in candidatesByTechnology)
+                    {
+                        candidatesDto.Add(new CandidateDto(candidate));
+                    }
+                    return Response.AsJson(candidatesDto);
+
                 }
             }
-            else
+            catch (Exception e)
             {
-                return Helper.ErrorResponse(new ArgumentException("Invalid parameter", nameof(years)), HttpStatusCode.InternalServerError);
+                return Helper.ErrorResponse(e, HttpStatusCode.InternalServerError);
             }
 
         }

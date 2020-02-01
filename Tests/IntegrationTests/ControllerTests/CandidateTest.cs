@@ -12,7 +12,7 @@ namespace IntegrationTest.ControllerTests
     public class CandidateTest
     {
         [TestMethod]
-        public void CanGetCandidatesByTech()
+        public void CanGetCandidatesByTechId()
         {
             using (var uw = new UnitOfWork())
             {
@@ -23,6 +23,23 @@ namespace IntegrationTest.ControllerTests
                 {
                     candidate.Experiences.Should()
                         .Contain(exp => exp.Technology.Id == 1 && exp.Years >= years);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void CanGetCandidatesByTechName()
+        {
+            using (var uw = new UnitOfWork())
+            {
+                var techName = "Kanban Tool";
+                //var tech = uw.TechnologyRepository.GetById(techName);
+                var years = 1;
+                var candidates = Candidates.GetCandidates(uw, techName, years);
+                foreach (var candidate in candidates)
+                {
+                    candidate.Experiences.Should()
+                        .Contain(exp => exp.Technology.Name == techName && exp.Years >= years);
                 }
             }
         }

@@ -21,14 +21,25 @@ namespace Controller
 
         public static IEnumerable<Candidate> GetCandidates(UnitOfWork uw, int technologyId, int years)
         {
-                var candidates = uw.CandidateRepository.Get(c => c.Experiences.Any(exp => exp.Technology.Id == technologyId && exp.Years >= years));
-                if (candidates == null)
-                {
-                    throw new ArgumentException($"Candidate data not found!");
-                }
-                return candidates;
+            var candidates = uw.CandidateRepository.Get(c => c.Experiences.Any(exp => exp.Technology.Id == technologyId && exp.Years >= years));
+            if (candidates == null)
+            {
+                throw new ArgumentException($"Candidate data not found!");
+            }
+            return candidates;
         }
 
 
+        public static void Accept(int recruiterId, int candidateId, bool accept)
+        {
+            using (var uw = new UnitOfWork())
+            {
+                var candidate = uw.CandidateRepository.GetById(candidateId);
+                var recruiter = uw.RecruiterRepository.GetById(recruiterId);
+                candidate.IsSelected = accept;
+                candidate.SeenBy.Add(recruiter);
+                uw.SaveChanges();
+            }
+        }
     }
 }

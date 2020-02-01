@@ -8,7 +8,9 @@ namespace WinService.NancyFX
 
         public static Response ErrorResponse(Exception e, HttpStatusCode httpStatusCode)
         {
-            var r = (Response) $"[{e.Message}]";
+            //log for test runner
+            Console.WriteLine(e?.Message);
+            var r = (Response) $"[{e?.Message}]";
             r.StatusCode = httpStatusCode;
             return r;
         }
