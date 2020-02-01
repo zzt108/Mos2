@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Linq;
 using DataAccessLayer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;
-using Controller;
 using FluentAssertions;
 
 namespace IntegrationTest
@@ -49,7 +49,28 @@ namespace IntegrationTest
                 var c = new Candidate(jTokenCandidate);
                 using (var uw = new UnitOfWork())
                 {
-                    Candidates.AddTechnologies(uw, c, jTokenCandidate);
+                    AddTechnologies(uw, c, jTokenCandidate);
+                }
+            }
+        }
+
+        private static void AddTechnologies(UnitOfWork uw, Candidate candidate, JToken jTokenCandidate)
+        {
+            var content = jTokenCandidate["technologies"];
+            var techArray = content.Children();
+            foreach (var tech in techArray)
+            {
+                var techName = tech["name"].ToString();
+                var t = uw.TechnologyRepository.Get(technology => technology.Name == techName).FirstOrDefault();
+                if (t != null)
+                {
+                    var experience = new Experience()
+                    {
+                        Technology = t, 
+                        Candidate = candidate,
+                        Years = tech["experianceYears"].Value<int>() // property is misspelled in source JSon
+                    };
+                    uw.ExperienceRepository.Add(experience);
                 }
             }
         }
@@ -80,7 +101,7 @@ namespace IntegrationTest
             {
                 var candidate = new Candidate(jsonCandidate);
                 uw.CandidateRepository.Add(candidate);
-                Candidates.AddTechnologies(uw, candidate,jsonCandidate);
+                AddTechnologies(uw, candidate,jsonCandidate);
             }
 
             uw.SaveChanges();

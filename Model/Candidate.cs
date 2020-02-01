@@ -5,7 +5,7 @@ namespace Model
 {
     public class Candidate
     {
-        
+
         public Candidate()
         {
             Experiences = new List<Experience>();
