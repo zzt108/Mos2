@@ -37,11 +37,12 @@ namespace WinService.NancyFX
             {
                 //get parameters
                 var model = this.Bind<RequestObject>();
-                Candidates.Accept(model.RecruiterId, model.CandidateId, accept);
+                using (var uw = new UnitOfWork())
+                {
+                    Candidates.Accept(uw, model.RecruiterId, model.CandidateId, accept);
+                }
 
-                var r = Response.AsJson(model).WithHeader("Location", $"/recruiter/id/{model.RecruiterId}");
-
-                return r;
+                return null;
             }
             catch (Exception e)
             {

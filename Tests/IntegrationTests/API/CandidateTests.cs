@@ -12,6 +12,28 @@ namespace IntegrationTest.API
     public class CandidateTests
     {
         [TestMethod]
+        public void CanAcceptCandidate()
+        {
+            // Given
+            var browser = new Browser(with =>
+            {
+                with.Module<CandidateModule>();
+            });
+
+            // When
+            var result = browser.Get("/candidate/accept/1", with =>
+            {
+                with.HttpRequest();
+                with.Header("accept", "application/json");
+            });
+            var response = result.Result;
+            // Then
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+
+        }
+
+        [TestMethod]
         public void CanGetCandidatesWithExperience()
         {
             // Given
@@ -55,7 +77,6 @@ namespace IntegrationTest.API
             var response = result.Result;
             // Then
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            //var deserializeJson = response.Body.AsString();
             var deserializeJson = response.Body.DeserializeJson<IList<Candidate>>();
             deserializeJson.Count.Should().Be(3);
 

@@ -30,16 +30,13 @@ namespace Controller
         }
 
 
-        public static void Accept(int recruiterId, int candidateId, bool accept)
+        public static void Accept(UnitOfWork uw, int recruiterId, int candidateId, bool accept)
         {
-            using (var uw = new UnitOfWork())
-            {
-                var candidate = uw.CandidateRepository.GetById(candidateId);
-                var recruiter = uw.RecruiterRepository.GetById(recruiterId);
-                candidate.IsSelected = accept;
-                candidate.SeenBy.Add(recruiter);
-                uw.SaveChanges();
-            }
+            var candidate = uw.CandidateRepository.GetById(candidateId);
+            var recruiter = uw.RecruiterRepository.GetById(recruiterId);
+            candidate.IsSelected = accept;
+            candidate.SeenBy.Add(recruiter);
+            uw.SaveChanges();
         }
     }
 }
