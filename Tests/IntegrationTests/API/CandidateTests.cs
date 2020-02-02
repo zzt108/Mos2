@@ -12,6 +12,27 @@ namespace IntegrationTest.API
     public class CandidateTests
     {
         [TestMethod]
+        public void CanPromoteCandidate()
+        {
+            // Given
+            var browser = new Browser(with =>
+            {
+                with.Module<CandidateModule>();
+            });
+
+            // When
+            var result = browser.Post("/candidate/promote/2/zzt@ifs.com/empty", with =>
+            {
+                with.HttpRequest();
+                with.Header("accept", "application/json");
+            });
+            var response = result.Result;
+            // Then
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        }
+
+        [TestMethod]
         public void CanAcceptCandidate()
         {
             // Given

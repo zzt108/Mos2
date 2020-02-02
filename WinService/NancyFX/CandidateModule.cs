@@ -16,10 +16,10 @@ namespace WinService.NancyFX
         public CandidateModule() : base("/candidate")
         {
             Get("/{technology}/{years:int}", _ => GetCandidatesByTechnology());
-            Put("/accept/{recruiterId:int}/{candidateId:int}}", _ => Accept(_, true));
-            Put("/reject/{recruiterId:int}/{candidateId:int}}", _ => Accept(_, false));
             Get("/accepted", _ => GetAcceptedCandidates());
-            Put("/promote/{candidateId:int}/{email:alpha}/{password:alpha}", _ => PromoteCandidate(_));
+            Put("/accept/{recruiterId:int}/{candidateId:int}", _ => Accept(_, true));
+            Put("/reject/{recruiterId:int}/{candidateId:int}", _ => Accept(_, false));
+            Post("/promote/{candidateId:int}/{email}/{password}", _ => PromoteCandidate(_));
         }
 
         private dynamic PromoteCandidate(dynamic _)
