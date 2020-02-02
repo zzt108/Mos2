@@ -23,28 +23,28 @@ namespace IntegrationTest.ControllerTests
                 var cand = uw.CandidateRepository.GetById(candidateId);
                 var seen = cand.SeenBy.Count;
 
-                //When
-                Candidates.Accept(uw, recruiterId, candidateId ,accept);
-                uw.SaveChanges();
+                try
+                {
+                    //When
+                    Candidates.Accept(uw, recruiterId, candidateId, accept);
+                    uw.SaveChanges();
 
-                //Then
-                cand = uw.CandidateRepository.GetById(candidateId);
-                var recr = uw.RecruiterRepository.GetById(recruiterId);
+                    //Then
+                    cand = uw.CandidateRepository.GetById(candidateId);
 
-                cand.IsSelected.Should().Be(accept);
-                cand.SeenBy.Count.Should().Be(seen +1);
-                recr.CandidatesSeen.Count.Should().Be(seen +1);
-                //cand.SeenBy.Should().Contain(recr);
-                //recr.CandidatesSeen.Should().Contain(cand);
+                    cand.IsSelected.Should().Be(accept);
+                    cand.SeenBy.Count.Should().Be(seen + 1);
+                }
+                finally
+                {
+                    //Clean up
+                    var recr = uw.RecruiterRepository.GetById(recruiterId);
 
-                //Clean up
-                cand.SeenBy.Remove(recr);
-                uw.SaveChanges();
+                    cand.SeenBy.Remove(recr);
+                    uw.SaveChanges();
 
-                var recr2 = uw.RecruiterRepository.GetById(recruiterId);
-                recr2.CandidatesSeen.Count.Should().Be(seen);
-                recr.CandidatesSeen.Count.Should().Be(seen);
-                //recr2.CandidatesSeen.Should().NotContain(cand);
+                }
+
 
             }
         }
