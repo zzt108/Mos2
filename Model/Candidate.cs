@@ -44,11 +44,9 @@ namespace Model
             }
 
             Experiences = new List<ExperienceDto>();
-            Name = new Name();
+            Name = c.Name;
 
             Id = c.Id;
-            Name.First = c.Name.First;
-            Name.Last = c.Name.Last;
             ExternalId = c.ExternalId;
             IsSelected = c.IsSelected;
 

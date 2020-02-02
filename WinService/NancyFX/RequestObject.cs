@@ -6,6 +6,7 @@
         public int RecruiterId;
         public int CandidateId;
         public string Email;
+        public string Password;
         public string Technology;
         public int Years;
     }

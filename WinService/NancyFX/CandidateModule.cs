@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Controller;
 using DataAccessLayer;
 using Model;
@@ -14,21 +15,47 @@ namespace WinService.NancyFX
 
         public CandidateModule() : base("/candidate")
         {
-            Get("/{technology}/{years}", _ => GetCandidatesByTechnology());
-            Put("/accept/{recruiterId}/{candidateId}}", _ => Accept(_, true));
-            Put("/reject/{recruiterId}/{candidateId}}", _ => Accept(_, false));
+            Get("/{technology}/{years:int}", _ => GetCandidatesByTechnology());
+            Put("/accept/{recruiterId:int}/{candidateId:int}}", _ => Accept(_, true));
+            Put("/reject/{recruiterId:int}/{candidateId:int}}", _ => Accept(_, false));
             Get("/accepted", _ => GetAcceptedCandidates());
-            Put("/promote/{id}", _ => PromoteCandidate(_));
+            Put("/promote/{candidateId:int}/{email:alpha}/{password:alpha}", _ => PromoteCandidate(_));
         }
 
         private dynamic PromoteCandidate(dynamic _)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //get parameters
+                var model = this.Bind<RequestObject>();
+                using (var uw = new UnitOfWork())
+                {
+                    var recr = Candidates.Promote(uw, model.CandidateId, model.Email, model.Password);
+                    return new RecruiterDto(recr);
+                }
+
+            }
+            catch (Exception e)
+            {
+                return Helper.ErrorResponse(e, HttpStatusCode.InternalServerError);
+            }
+
         }
 
         private dynamic GetAcceptedCandidates()
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var uw=new UnitOfWork())
+                {
+                    var candidates = uw.CandidateRepository.Get(candidate => candidate.IsSelected);
+                    return Response.AsJson(candidates.Select(candidate => new CandidateDto(candidate)).ToList());
+                }
+            }
+            catch (Exception e)
+            {
+                return Helper.ErrorResponse(e, HttpStatusCode.InternalServerError);
+            }
         }
 
         private dynamic Accept(dynamic _, bool accept)
@@ -56,7 +83,7 @@ namespace WinService.NancyFX
             {
                 //get parameters
                 var model = this.Bind<RequestObject>();
-                string technology = HttpUtility.UrlDecode(model.Technology);
+                var technology = HttpUtility.UrlDecode(model.Technology);
                 using (var uw = new UnitOfWork())
                 {
                     IEnumerable<Candidate> candidatesByTechnology;
@@ -70,11 +97,7 @@ namespace WinService.NancyFX
                         candidatesByTechnology = Candidates.GetCandidates(uw, technology, model.Years);
                     }
                     //load entities before serialization
-                    var candidatesDto = new List<CandidateDto>();
-                    foreach (var candidate in candidatesByTechnology)
-                    {
-                        candidatesDto.Add(new CandidateDto(candidate));
-                    }
+                    var candidatesDto = candidatesByTechnology.Select(candidate => new CandidateDto(candidate)).ToList();
                     return Response.AsJson(candidatesDto);
 
                 }

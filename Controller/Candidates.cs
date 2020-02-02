@@ -38,5 +38,21 @@ namespace Controller
             candidate.SeenBy.Add(recruiter);
             uw.SaveChanges();
         }
+
+        public static Recruiter Promote(UnitOfWork uw, int candidateId, string email, string password)
+        {
+            var candidate = uw.CandidateRepository.GetById(candidateId);
+            var recruiter = new Recruiter()
+            {
+                Name = candidate.Name,
+                Email = email,
+                PasswordSaltedHash = password,
+                PromotedFromCandidate = candidate
+
+            };
+            uw.RecruiterRepository.Add(recruiter);
+            uw.SaveChanges();
+            return recruiter;
+        }
     }
 }
