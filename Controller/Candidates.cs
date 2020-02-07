@@ -8,6 +8,11 @@ namespace Controller
 {
     public static class Candidates
     {
+        public static IEnumerable<Candidate> GetAcceptedCandidates(UnitOfWork uw)
+        {
+            return uw.CandidateRepository.Get(candidate => candidate.IsSelected);
+        }
+
 
         public static IEnumerable<Candidate> GetCandidates(UnitOfWork uw, string technology, int years)
         {

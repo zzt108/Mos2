@@ -48,7 +48,7 @@ namespace WinService.NancyFX
             {
                 using (var uw=new UnitOfWork())
                 {
-                    var candidates = uw.CandidateRepository.Get(candidate => candidate.IsSelected);
+                    var candidates = Candidates.GetAcceptedCandidates(uw);
                     return Response.AsJson(candidates.Select(candidate => new CandidateDto(candidate)).ToList());
                 }
             }
@@ -108,6 +108,5 @@ namespace WinService.NancyFX
             }
 
         }
-
     }
 }
