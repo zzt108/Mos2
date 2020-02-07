@@ -8,7 +8,7 @@ namespace Model
     {
         public Recruiter()
         {
-            CandidatesSeen  = new List<Candidate>();  
+            CandidatesSeen  = new List<Seen>();  
         }
 
 
@@ -20,6 +20,6 @@ namespace Model
         public virtual Candidate PromotedFromCandidate { get; set; }
         public string PasswordSaltedHash{ get; set; } // not implemented yet
         public string Email{ get; set; }
-        public virtual IList<Candidate> CandidatesSeen { get; set; }
+        public virtual IList<Seen> CandidatesSeen { get; set; }
     }
 }

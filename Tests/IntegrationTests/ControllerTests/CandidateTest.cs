@@ -35,10 +35,9 @@ namespace IntegrationTest.ControllerTests
                 finally
                 {
                     //Clean up
-                    var recr = uw.RecruiterRepository.GetById(recruiterId);
 
                     cand.IsSelected = false;
-                    cand.SeenBy.Remove(recr);
+                    cand.SeenBy.Remove(cand.SeenBy.First());
                     uw.SaveChanges();
 
                 }
@@ -74,9 +73,7 @@ namespace IntegrationTest.ControllerTests
                 finally
                 {
                     //Clean up
-                    var recr = uw.RecruiterRepository.GetById(recruiterId);
-
-                    cand.SeenBy.Remove(recr);
+                    cand.SeenBy.Remove(cand.SeenBy.First());
                     uw.SaveChanges();
 
                 }

@@ -9,7 +9,7 @@ namespace Model
         public Candidate()
         {
             Experiences = new List<Experience>();
-            SeenBy = new List<Recruiter>();
+            SeenBy = new List<Seen>();
         }
         public Candidate(JToken candidate)
         {
@@ -30,6 +30,6 @@ namespace Model
         public bool IsSelected { get; set; }
 
         public virtual IList<Experience> Experiences { get; set; }
-        public virtual IList<Recruiter> SeenBy { get; set; }
+        public virtual IList<Seen> SeenBy { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace DataAccessLayer
         private GenericRepository<Experience> _experienceRepository;
         private GenericRepository<Technology> _technologyRepository;
         private GenericRepository<Recruiter> _recruiterRepository;
+        private GenericRepository<Seen> _seenRepository;
 
         private bool _disposed;
 
@@ -18,6 +19,7 @@ namespace DataAccessLayer
         public GenericRepository<Experience> ExperienceRepository => _experienceRepository ?? (_experienceRepository = new GenericRepository<Experience>(Context));
         public GenericRepository<Technology> TechnologyRepository => _technologyRepository ?? (_technologyRepository = new GenericRepository<Technology>(Context));
         public GenericRepository<Recruiter> RecruiterRepository => _recruiterRepository ?? (_recruiterRepository = new GenericRepository<Recruiter>(Context));
+        public GenericRepository<Seen> SeenRepository => _seenRepository ?? (_seenRepository = new GenericRepository<Seen>(Context));
 
         public bool LazyLoadingEnabled
         {

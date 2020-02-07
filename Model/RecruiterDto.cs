@@ -12,9 +12,9 @@ namespace Model
             PromotedFromCandidate = new CandidateDto(r.PromotedFromCandidate);
             PasswordSaltedHash = r.PasswordSaltedHash;
             Email = r.Email;
-            foreach (var candidate in r.CandidatesSeen)
+            foreach (var seen in r.CandidatesSeen)
             {
-                CandidatesSeen.Add(new CandidateDto(candidate));
+                CandidatesSeen.Add(new CandidateDto(seen.Candidate));
             }
         }
         public int RecruiterId { get; set; }

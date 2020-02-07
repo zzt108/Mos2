@@ -40,7 +40,11 @@ namespace Controller
             var candidate = uw.CandidateRepository.GetById(candidateId);
             var recruiter = uw.RecruiterRepository.GetById(recruiterId);
             candidate.IsSelected = accept;
-            candidate.SeenBy.Add(recruiter);
+            uw.SeenRepository.Add(new Seen()
+            {
+                Candidate = candidate,
+                Recruiter = recruiter
+            });
             uw.SaveChanges();
         }
 

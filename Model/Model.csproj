@@ -45,6 +45,7 @@
     <Compile Include="ExperienceDto.cs" />
     <Compile Include="Name.cs" />
     <Compile Include="RecruiterDto.cs" />
+    <Compile Include="Seen.cs" />
     <Compile Include="Technology.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recruiter.cs" />
