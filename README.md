@@ -24,7 +24,6 @@ This solution is based on my earlier hobby work.
 2. Recruiter password handling is not implemented
 3. Recruiter security token handling is not implemented
 4. When a candidate is accepted/rejected the candidate is marked to be seen by the recruiter. This is represented by a many-to-many relationship. However the recruiter side of the relationship seems to have issues. This may be a problem with the code first database generation of Entity Framework.
-5. GetAcceptedCandidates needs to be tested
 
 ## Task Description
 

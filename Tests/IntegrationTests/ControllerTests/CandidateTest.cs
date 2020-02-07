@@ -12,6 +12,42 @@ namespace IntegrationTest.ControllerTests
     public class CandidateTest
     {
         [TestMethod]
+        public void CanGetAcceptedCandidates()
+        {
+            using (var uw = new UnitOfWork())
+            {
+                //Given
+                var candidateId = 1;
+                var recruiterId = 1;
+                var accept = true;
+                var cand = uw.CandidateRepository.GetById(candidateId);
+
+                try
+                {
+                    //When
+                    Candidates.Accept(uw, recruiterId, candidateId, accept);
+                    uw.SaveChanges();
+
+                    //Then
+                    var candidates = Candidates.GetAcceptedCandidates(uw);
+                    candidates.Count().Should().Be(1);
+                }
+                finally
+                {
+                    //Clean up
+                    var recr = uw.RecruiterRepository.GetById(recruiterId);
+
+                    cand.IsSelected = false;
+                    cand.SeenBy.Remove(recr);
+                    uw.SaveChanges();
+
+                }
+
+
+            }
+        }
+
+        [TestMethod]
         public void CanAcceptCandidate()
         {
             using (var uw = new UnitOfWork())
