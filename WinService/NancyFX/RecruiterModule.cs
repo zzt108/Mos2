@@ -29,12 +29,12 @@ namespace WinService.NancyFX
                 }
             }
 
-            Response LoginRecruiter(dynamic _)
+            dynamic LoginRecruiter(dynamic _)
             {
                 try
                 {
                     var r = Controller.Recruiters.GetByEmail(_.email.ToString());
-                    return r == null ? Helper.ErrorResponse(new ArgumentException($"Email '{_.email}' not found"), HttpStatusCode.NotFound) : r.Name;
+                    return r == null ? Helper.ErrorResponse(new ArgumentException($"Email '{_.email}' not found"), HttpStatusCode.NotFound) : r.Name ;
                 }
                 catch (Exception e)
                 {

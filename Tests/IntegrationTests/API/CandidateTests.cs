@@ -126,7 +126,7 @@ namespace IntegrationTest.API
         }
 
         [TestMethod]
-        public void CanNotLoginWithInvalidEmail()
+        public void CanNotGetCandidatesInvalidTech()
         {
             // Given
             var browser = new Browser(with =>
