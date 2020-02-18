@@ -25,7 +25,7 @@ The API can be accessed on the localhost:8080 port after starting the WinService
 
 1. Execute Start.bat in main project folder (The command window can be closed, the server will still work)
 2. Requests on localhost:8080 will be answered 
-3. To top the server execute the Stop.bat in main project folder
+3. To stop the server execute the Stop.bat in main project folder
 
 ## Implementation details
 
