@@ -17,20 +17,8 @@ namespace WinService
             var host = new NancyHost(new Uri(url), new DefaultNancyBootstrapper(), hostConfigs);
             host.Start();
 
-            //Debug code
-            if (!Environment.UserInteractive)
-            {
-                var servicesToRun = new ServiceBase[]
-                {
-                    //new Service1()
-                };
-                ServiceBase.Run(servicesToRun);
-            }
-            else
-            {
-                // forces debug to keep VS running while we debug the service
-                System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
-            }
+            System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
+
         }
     }
 }
