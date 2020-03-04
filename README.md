@@ -17,15 +17,24 @@ The API can be accessed on the localhost:8080 port after starting the WinService
 #### Starting the API server from Visual Studio IDE
 
 1. Open the SLN in Visual Studio
-2. Set the WinService project as the startup project for the solution
+2. Set the Api project as the startup project for the solution
 3. Start the project with F5 (debug run)
 4. Requests on localhost:8080 will be answered 
 
 #### Starting the API server from command prompt
 
-1. Execute Start.bat in main project folder (The command window can be closed, the server will still work)
+1. Execute StartProcess.bat in main project folder (The command window can be closed, the server will still work)
 2. Requests on localhost:8080 will be answered 
-3. To stop the server execute the Stop.bat in main project folder
+3. To stop the server execute the StopProcess.bat in main project folder
+
+#### Installing the API server as windows service
+
+1. Build the solution
+2. Start Developer Command prompt as administrator
+3. Navigate to the main folder of the Mossad solution
+4. Execute installService.bat
+5. Start Services.msc
+6. Start Mossad.HR.API service
 
 ## Implementation details
 

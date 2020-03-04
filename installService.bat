@@ -1,3 +1,2 @@
-
-WindowsService\bin\debug\windowsservice.exe install
+installutil.exe "WindowsService\bin\debug\windowsservice.exe"
 pause

@@ -39,6 +39,8 @@
             // 
             // serviceInstaller1
             // 
+            this.serviceInstaller1.Description = "Mossad HR API";
+            this.serviceInstaller1.DisplayName = "Mossad.HR.API";
             this.serviceInstaller1.ServiceName = "Service1";
             // 
             // ProjectInstaller
