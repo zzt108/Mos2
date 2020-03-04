@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{07FBBADF-F9F7-4F48-BBF9-510FBDB2EDFD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WinService</RootNamespace>
-    <AssemblyName>WinService</AssemblyName>
+    <RootNamespace>Api</RootNamespace>
+    <AssemblyName>Api</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -60,6 +60,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NancyFX\RecruiterModule.cs" />
+    <Compile Include="Server.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

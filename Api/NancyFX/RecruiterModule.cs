@@ -3,7 +3,7 @@ using Model;
 using Nancy;
 using Nancy.ModelBinding;
 
-namespace WinService.NancyFX
+namespace Api.NancyFX
 {
     public sealed class RecruiterModule : NancyModule
     {

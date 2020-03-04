@@ -1,6 +1,6 @@
 ﻿using Nancy;
 
-namespace WinService.NancyFX
+namespace Api.NancyFX
 {
     public sealed class MainModule : NancyModule
     {

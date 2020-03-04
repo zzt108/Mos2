@@ -8,7 +8,7 @@ using Nancy;
 using Nancy.Helpers;
 using Nancy.ModelBinding;
 
-namespace WinService.NancyFX
+namespace Api.NancyFX
 {
     public sealed class CandidateModule : NancyModule
     {

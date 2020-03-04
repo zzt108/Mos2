@@ -1,4 +1,4 @@
-﻿namespace WinService.NancyFX
+﻿namespace Api.NancyFX
 {
     //Bind Common URL variables into this temporary object
     internal class RequestObject

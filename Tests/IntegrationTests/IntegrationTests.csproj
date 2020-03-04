@@ -99,6 +99,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Api\Api.csproj">
+      <Project>{07fbbadf-f9f7-4f48-bbf9-510fbdb2edfd}</Project>
+      <Name>Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Controller\Controller.csproj">
       <Project>{f04ffd15-511d-4b33-b0f7-f4723d854f9d}</Project>
       <Name>Controller</Name>
@@ -110,10 +114,6 @@
     <ProjectReference Include="..\..\Model\Model.csproj">
       <Project>{594ce0b6-846a-487d-82a4-d8d8a7750c6a}</Project>
       <Name>Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\WinService\WinService.csproj">
-      <Project>{07FBBADF-F9F7-4F48-BBF9-510FBDB2EDFD}</Project>
-      <Name>WinService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

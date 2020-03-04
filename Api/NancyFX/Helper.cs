@@ -1,7 +1,7 @@
 ﻿using System;
 using Nancy;
 
-namespace WinService.NancyFX
+namespace Api.NancyFX
 {
     public static class Helper 
     {

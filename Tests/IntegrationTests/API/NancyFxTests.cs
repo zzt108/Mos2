@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Api.NancyFX;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nancy;
 using Nancy.Testing;
-using WinService.NancyFX;
 
 namespace IntegrationTest.API
 {

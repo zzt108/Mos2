@@ -5,7 +5,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;
-using Controller;
 using FluentAssertions;
 
 namespace IntegrationTest

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
+using Api.NancyFX;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
 using Nancy;
 using Nancy.Testing;
-using WinService.NancyFX;
 
 namespace IntegrationTest.API
 {
