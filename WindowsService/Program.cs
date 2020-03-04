@@ -25,5 +25,6 @@ namespace WindowsService
                 // forces debug to keep VS running while we debug the service
                 System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
             }
-        }    }
+        }
+    }
 }
