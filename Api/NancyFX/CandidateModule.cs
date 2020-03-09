@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Controller;
 using DataAccessLayer;
@@ -10,6 +11,7 @@ using Nancy.ModelBinding;
 
 namespace Api.NancyFX
 {
+    [SuppressMessage("ReSharper", "UnusedParameter.Local")]
     public sealed class CandidateModule : NancyModule
     {
 

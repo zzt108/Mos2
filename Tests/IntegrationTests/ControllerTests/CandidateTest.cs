@@ -17,9 +17,9 @@ namespace IntegrationTest.ControllerTests
             using (var uw = new UnitOfWork())
             {
                 //Given
-                var candidateId = 1;
-                var recruiterId = 1;
-                var accept = true;
+                const int candidateId = 1;
+                const int recruiterId = 1;
+                const bool accept = true;
                 var cand = uw.CandidateRepository.GetById(candidateId);
 
                 try
@@ -52,9 +52,9 @@ namespace IntegrationTest.ControllerTests
             using (var uw = new UnitOfWork())
             {
                 //Given
-                var candidateId = 1;
-                var recruiterId = 1;
-                var accept = true;
+                const int candidateId = 1;
+                const int recruiterId = 1;
+                const bool accept = true;
                 var cand = uw.CandidateRepository.GetById(candidateId);
                 var seen = cand.SeenBy.Count;
 
