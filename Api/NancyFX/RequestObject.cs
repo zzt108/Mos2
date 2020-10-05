@@ -14,5 +14,9 @@ namespace Api.NancyFX
         public string Password;
         public string Technology;
         public int Years;
+        //{pageSize}/{pageNumber}
+        public int PageSize;
+        public int PageNumber;
+
     }
 }

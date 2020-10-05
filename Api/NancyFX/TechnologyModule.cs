@@ -1,5 +1,6 @@
 ﻿using System;
 using Nancy;
+using Nancy.ModelBinding;
 
 namespace Api.NancyFX
 {
@@ -7,13 +8,14 @@ namespace Api.NancyFX
     {
         public TechnologyModule() : base("/Technology")
         {
-            Get("/", _ => GetAll());
+            Get("/{pageSize}/{pageNumber}", _ => GetAll());
 
             object GetAll()
             {
                 try
                 {
-                    return Controller.Technologies.GetAll();
+                    var model = this.Bind<RequestObject>();
+                    return Controller.Technologies.GetAll(model.PageSize, model.PageNumber);
                 }
                 catch (Exception e)
                 {
